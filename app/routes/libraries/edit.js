@@ -3,13 +3,21 @@ import Route from '@ember/routing/route';
 export default Route.extend({
 
   model(params) {
-    console.log("LIBRARY PARAMS");
-    console.log(params);
     return this.store.findRecord('library', params.library_id);
   },
 
-  actions: {
+  setupController(controller, model) {
+    this._super(controller, model);
 
+    controller.set('title', 'Edit library');
+    controller.set('buttonLabel', 'Save changes');
+  },
+
+  renderTemplate() {
+    this.render('libraries/form');
+  },
+
+  actions: {
     saveLibrary(library) {
       library.save().then(() => this.transitionTo('libraries'));
     },
