@@ -2,7 +2,7 @@ import Controller from '@ember/controller';
 import { match, not } from '@ember/object/computed';
 
 export default Controller.extend({
-    headerText: 'Das ist zo Feunig!!',
+    headerText: 'Welcome to our Libraries!',
     emailAddress: '',
     isValid: match('emailAddress', /^.+@.+\..+$/),
     isDisabled: not('isValid'),
