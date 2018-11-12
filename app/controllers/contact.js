@@ -10,15 +10,20 @@ export default Controller.extend({
   
     actions: {
       sendMessage: function() {
-        var email = this.emailAddress;
-        var message = this.message;
-  
-        alert('Sending your message in progress... ');
-  
-        var responseMessage = 'To: ' + email + ', Message: ' + message;
+        let email = this.emailAddress;
+        let message = this.message;  
+        let responseMessage = 'To: ' + email + ', Message: ' + message;
+
         this.set('responseMessage', responseMessage);
         this.set('emailAddress', '');
         this.set('message', '');
+
+        const newContact = this.store.createRecord('contact', { email, message });
+  
+        newContact.save()
+        .then(response => {
+          this.set('responseMessage', `Thank you! We saved your email address with the following id: ${response.get('id')}`);
+        });
       }
     }
   });
